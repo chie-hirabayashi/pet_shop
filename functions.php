@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // ファイルの読み込み
 require_once __DIR__ . '/config.php';
@@ -7,16 +7,12 @@ require_once __DIR__ . '/config.php';
 function connect_db()
 {
     try {
-        return new PDO(
-            DSN,
-            USER,
-            PASSWORD,
-            [PDO::ATTR_ERRMODE =>
-            PDO::ERRMODE_EXCEPTION]
-        );
+        return new PDO(DSN, USER, PASSWORD, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        ]);
     } catch (PDOException $e) {
         echo $e->getMessage(); #本来はこの書き方はしない。セキュリティー上、危険な書き方。
-        exit;
+        exit();
     }
 }
 
@@ -26,4 +22,3 @@ function h($str)
     // ENT_QUOTES: シングルクオートとダブルクオートを共に変換する。
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
-
