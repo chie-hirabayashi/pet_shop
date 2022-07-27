@@ -31,13 +31,13 @@ function select_animals($keyword)
 
     // SQL文
     $sql = <<<EOM
-SELECT
-    *
-FROM
-    animals
-WHERE
-    description LIKE :keyword;
-EOM;
+    SELECT
+        *
+    FROM
+        animals
+    WHERE
+        description LIKE :keyword;
+    EOM;
 
     // パラメータ設定
     $keyword_param = '%' . $keyword . '%';
@@ -61,11 +61,11 @@ function all_select_animals()
 
     // animalsテーブルを選択
     $sql = <<<EOM
-SELECT
-    *
-FROM
-    animals
-EOM;
+    SELECT
+        *
+    FROM
+        animals
+    EOM;
 
     //準備
     $stmt = $dbh->prepare($sql);

@@ -35,7 +35,6 @@ $select_animals = select_animals($keyword);
         <input type="text" name="keyword" placeholder="キーワードの入力" >
         <input type="submit" value="検索">
         <ul style='list-style-type: none; padding-left: 0;'>
-        <?php if (!empty($keyword)): ?>
             <?php for ($idx = 0; $idx < count($select_animals); $idx++): ?>
                 <li><?= $select_animals[$idx]['type'] .
                     'の' .
@@ -46,7 +45,6 @@ $select_animals = select_animals($keyword);
                 <li><?= '出身地 ' . $select_animals[$idx]['birthplace'] ?></li>
                 <hr>
             <?php endfor; ?>
-        <?php endif; ?>
         </ul>
         
     </form>
