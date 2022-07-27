@@ -22,3 +22,27 @@ function h($str)
     // ENT_QUOTES: シングルクオートとダブルクオートを共に変換する。
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
+
+// 全データ読み込み
+function all_select_animals()
+{
+    // データベースに接続
+    $dbh = connect_db();
+
+    // animalsテーブルを選択
+    $sql = <<<EOM
+SELECT
+    *
+FROM
+    animals
+EOM;
+
+    //準備
+    $stmt = $dbh->prepare($sql);
+
+    // 実行
+    $stmt->execute();
+
+    // 連想配列でデータベースからデータを取得する
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
