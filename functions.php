@@ -23,6 +23,36 @@ function h($str)
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
 
+// 本日のご紹介ペット抽出
+function select_animals($keyword)
+{
+    // データベースに接続
+    $dbh = connect_db();
+
+    // SQL文
+    $sql = <<<EOM
+    SELECT
+        *
+    FROM
+        animals
+    WHERE
+        description LIKE :keyword;
+    EOM;
+
+    // パラメータ設定
+    $keyword_param = '%' . $keyword . '%';
+    // プリペアドステートメント準備
+    $stmt = $dbh->prepare($sql);
+    // パラメータのバインド
+    $stmt->bindValue(':keyword', $keyword_param, PDO::PARAM_STR);
+    // プリペアドステートメント実行(これでSQL文が実行される)
+    $stmt->execute();
+
+    $select_animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $select_animals;
+}
+
+// これは使わない関数
 // 全データ読み込み
 function all_select_animals()
 {
@@ -31,11 +61,11 @@ function all_select_animals()
 
     // animalsテーブルを選択
     $sql = <<<EOM
-SELECT
-    *
-FROM
-    animals
-EOM;
+    SELECT
+        *
+    FROM
+        animals
+    EOM;
 
     //準備
     $stmt = $dbh->prepare($sql);
